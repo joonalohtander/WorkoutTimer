@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity
     Timer timer;
     TimerTask timerTask;
     Double time = 0.0;
+    TextView setCount;
+    int count = 0;
 
     boolean timerStarted = false;
 
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity
         stopStartButton = (Button) findViewById(R.id.startStopButton);
 
         timer = new Timer();
+
+        setCount = (TextView) findViewById(R.id.setCount);
 
     }
 
@@ -51,12 +55,41 @@ public class MainActivity extends AppCompatActivity
                 if(timerTask != null)
                 {
                     timerTask.cancel();
+
+                    timerStarted = false;
                     setButtonUI("START", R.color.green);
                     time = 0.0;
-                    timerStarted = false;
                     timerText.setText(formatTime(0,0,0));
 
                 }
+            }
+        });
+
+        resetAlert.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                //do nothing
+            }
+        });
+
+        resetAlert.show();
+
+    }
+
+    public void resetSetCount(View v)
+    {
+        AlertDialog.Builder resetAlert = new AlertDialog.Builder(this);
+        resetAlert.setTitle("Reset Sets");
+        resetAlert.setMessage("Are you sure you want to reset the sets?");
+        resetAlert.setPositiveButton("Reset", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                count = 0;
+                setCount.setText("" + count);
             }
         });
 
@@ -116,7 +149,7 @@ public class MainActivity extends AppCompatActivity
             }
 
         };
-        timer.scheduleAtFixedRate(timerTask, 0 ,1000);
+        timer.scheduleAtFixedRate(timerTask, 0 ,10);
     }
 
 
@@ -124,16 +157,27 @@ public class MainActivity extends AppCompatActivity
     {
         int rounded = (int) Math.round(time);
 
-        int seconds = ((rounded % 86400) % 3600) % 60;
-        int minutes = ((rounded % 86400) % 3600) / 60;
-        int hours = ((rounded % 86400) / 3600);
+        int hundredths = ((rounded % 86400) % 3600) % 100;
+        int seconds = ((rounded/100 % 86400) % 3600) % 60;
+        int minutes = ((rounded/100 % 86400) % 3600) / 60;
 
-        return formatTime(seconds, minutes, hours);
+        return formatTime(hundredths, seconds, minutes);
     }
 
-    private String formatTime(int seconds, int minutes, int hours)
+    private String formatTime(int hundredths, int seconds, int minutes)
     {
-        return String.format("%02d",hours) + " : " + String.format("%02d",minutes) + " : " + String.format("%02d",seconds);
+        return String.format("%02d",minutes) + " : " + String.format("%02d",seconds) + " : " + String.format("%02d",hundredths);
+    }
+
+    public void increment(View v) {
+        count++;
+        setCount.setText("" + count);
+    }
+
+    public void decrement(View v) {
+        if(count <= 0) count = 0;
+        else count--;
+        setCount.setText("" + count);
     }
 
 }

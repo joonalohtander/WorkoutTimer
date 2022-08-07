@@ -1,62 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/black">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey">
+        android:background="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RESET"
             android:background="@null"
+            android:onClick="resetTapped"
+            android:text="RESET"
             android:textColor="@color/red"
-            android:textSize="30sp"
-            android:onClick="resetTapped"/>
+            android:textSize="30sp" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TIMER"
-            android:textColor="@color/black"
             android:layout_gravity="center"
-            android:textSize="30sp"/>
+            android:text="TIMER"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
 
         <Button
+            android:id="@+id/startStopButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="START"
-            android:id="@+id/startStopButton"
-            android:background="@null"
-            android:textColor="@color/green"
-            android:textSize="30sp"
             android:layout_gravity="end"
             android:layout_marginRight="15dp"
-            android:onClick="startStopTapped"/>
+            android:background="@null"
+            android:onClick="startStopTapped"
+            android:text="START"
+            android:textColor="@color/green"
+            android:textSize="30sp" />
 
 
     </androidx.appcompat.widget.Toolbar>
 
 
-
     <TextView
+        android:id="@+id/timerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/timerText"
-        android:textSize="60sp"
-        android:text="00 : 00 : 00"
-        android:textColor="@color/black"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="32dp"
+        android:text="00 : 00 : 00"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:text="-"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerText"
+        android:onClick="decrement"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerText"
+        android:background="@color/grey"
+        android:textColor="@color/white"
+        android:onClick="increment"/>
+
+    <Button
+        android:id="@+id/resetSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:text=" Reset Sets "
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="resetSetCount"/>
+
+    <TextView
+        android:id="@+id/setCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/timerText" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Sets"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/setCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
